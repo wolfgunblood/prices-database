@@ -24,19 +24,19 @@ async function main() {
 
     await findCSVFiles(path);
 
-    // files.forEach(file => {
-    //     console.log(file)
-    // })
+    filePaths.forEach(file => {
+        console.log(file)
+    })
 
     const datesArray = await fs.readdir(path);
 
 
 
-    datesArray.forEach((date) => {
-        result[date] = filePaths.filter((filePath) => {
-            return filePath && filePath.includes(date);
-        });
-    });
+    // datesArray.forEach((date) => {
+    //     result[date] = filePaths.filter((filePath) => {
+    //         return filePath && filePath.includes(date);
+    //     });
+    // });
 
     // console.log(result);
 
@@ -61,7 +61,7 @@ async function findCSVFiles(path) {
         // console.log(item)
     }
 
-    // console.log(files)
+    // console.log(filePaths)
 }
 
 // const app = http.createServer((request, response) => {
