@@ -1,4 +1,4 @@
-function main(){
+function main() {
 	fetch('http://localhost:3001/api')
 		.then(response => response.json())
 		.then(data => {
@@ -17,6 +17,7 @@ function main(){
 			//     dataList.appendChild(listItem);
 			//   })
 			// });
+			console.log(data)
 			Object.keys(data).forEach(key => {
 				const listItem = document.createElement('li');
 				const button = document.createElement('button');
@@ -33,7 +34,8 @@ function main(){
 					}
 					// console.log(data[key])
 
-					Object.values(data[key]).forEach(i => {
+					Object.keys(data[key]).forEach(i => {
+						// console.log(i)
 						const listItem = document.createElement('li');
 						const button = document.createElement('button');
 						button.textContent = i;
@@ -41,9 +43,27 @@ function main(){
 						dataList.appendChild(listItem);
 						// console.log(i)
 						button.addEventListener('click', () => {
-							svgContainer.innerHTML = '';
-							console.log(i)
-							drawChart(i)
+							// Clear existing list items
+							// console.log("He/llo There")
+							while (dataList.firstChild) {
+								dataList.firstChild.remove();
+							}
+							// console.log(data[key][i])
+							// Object.keys(data[key][i]).forEach(key => {
+							Object.values(data[key][i]).forEach(j => {
+								console.log(j)
+								const listItem = document.createElement('li');
+								const button = document.createElement('button');
+								button.textContent = fileName(j);
+								listItem.appendChild(button);
+								dataList.appendChild(listItem);
+
+								button.addEventListener('click', () => {
+									svgContainer.innerHTML = '';
+									console.log(j)
+									drawChart(j)
+								});
+							});
 						});
 					});
 				});
@@ -64,6 +84,11 @@ function main(){
 
 // }
 
+function fileName(name){
+	const filename = name.match(/\/([^/]+)\s\(/)[1];
+	console.log(filename)
+	return filename;
+}
 
 function drawChart(path) {
 

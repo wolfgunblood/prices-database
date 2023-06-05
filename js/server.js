@@ -24,12 +24,37 @@ async function main() {
 
     await findCSVFiles(path);
 
-    filePaths.forEach(file => {
-        console.log(file)
-    })
+    // filePaths.forEach(file => {
+    //     console.log(file)
+    // })
 
-    const datesArray = await fs.readdir(path);
+    const dates = await fs.readdir(path);
+    const timeframes = ["1 min", "5 min"];
 
+    // console.log(datesArray)
+
+    
+
+    for (const date of dates) {
+        result[date] = {};
+        for (const timeframe of timeframes) {
+            result[date][timeframe] = [];
+        }
+    }
+
+
+    for (const path of filePaths) {
+        if (path) {
+          for (const date of dates) {
+            for (const timeframe of timeframes) {
+              if (path.includes(date) && path.includes(timeframe)) {
+                result[date][timeframe].push(path);
+              }
+            }
+          }
+        }
+      }
+    
 
 
     // datesArray.forEach((date) => {
@@ -38,7 +63,7 @@ async function main() {
     //     });
     // });
 
-    // console.log(result);
+    console.log(result);
 
 }
 
@@ -72,7 +97,7 @@ async function findCSVFiles(path) {
 
 app.get('/', (request, response) => {
     response.send('<h1>Hello World!</h1>')
-    
+
 })
 
 app.get('/api', (request, response) => {
