@@ -82,7 +82,7 @@ ul {
 button {
   background-color: grey;
   border: none;
-  border-radius: 46px;
+  /* border-radius: 46px; */
   color: white;
   padding: 8px 16px;
   text-align: center;
